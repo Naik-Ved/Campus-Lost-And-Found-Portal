@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Lost & Found</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <nav class="navbar">
+        <div class="logo">Campus Lost & Found</div>
+        <div class="nav-links">
+            <a href="#report-section">Post Item</a>
+            <a href="#feed-section">Browse Items</a>
+        </div>
+    </nav>
+    
+    <main class="container">
+
+        <section id="report-section" class="form-container">
+            <h2>Post a Report</h2>
+            
+            <div id="itemForm">
+                
+                <div class="form-group">
+                    <label>Status (Are you finding or losing?)</label>
+                    <select id="itemType">
+                        <option value="Found">I Found Something</option>
+                        <option value="Lost">I Lost Something</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Item Name</label>
+                    <input type="text" id="itemName" placeholder="e.g. Blue Casio Calculator">
+                </div>
+                
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" id="userName" placeholder="Enter your name">
+                </div>
+
+                <div class="form-group">
+                    <label>Contact Number / Location</label>
+                    <input type="text" id="contact" placeholder="e.g. 999-999-9999 or Library Table 4">
+                </div>
+
+                <div class="form-group">
+                    <label>Unique Mark / Description</label>
+                    <textarea id="description" placeholder="Describe unique marks (e.g. 'My name RAJ is scratched on back')"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Upload Photo (Proof)</label>
+                    <input type="file" id="imageInput" accept="image/*">
+                </div>
+
+                <img id="preview" src="" style="max-width: 100px; display: none; margin-top: 10px; border: 2px solid #ddd; border-radius: 5px;">
+
+                <button onclick="reportItem()" class="btn-submit">Post Report</button>
+            </div>
+        </section>
+
+        <section id="feed-section" class="feed-container">
+            <h2>Recent Activity</h2>
+            <div id="itemsContainer" class="items-grid">
+                <p>Loading items...</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

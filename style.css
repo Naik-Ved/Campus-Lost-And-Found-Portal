@@ -1,0 +1,176 @@
+
+* { 
+    margin: 0;
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Poppins', sans-serif; 
+}
+
+body { 
+    background-color: #313647; 
+    color: #050E3C; 
+    line-height: 1.6; 
+}
+
+/* --- FLEXBOX NAVBAR --- */
+.navbar { 
+    background-color: #435663; 
+    color: #A3B087; 
+    padding: 1rem 2rem; 
+    display: flex; /* Aligns logo and links horizontally */
+    justify-content: space-around; 
+    align-items: center; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+}
+
+.logo { 
+    font-size: 2rem; 
+    font-weight: 600; 
+}
+
+.nav-links a { 
+    color: #A3B087; 
+    text-decoration: none; 
+    margin-left: 20px; 
+    font-weight: 400; 
+}
+
+/* MAIN LAYOUT CONTAINER */
+.container { 
+    max-width: 1000px; 
+    margin: 2rem auto; 
+    padding: 0 20px; 
+    display: grid; /* Here I  Creates separation between Form and Feed */
+    gap: 2rem; 
+}
+
+/* FORM STYLING */
+.form-container { 
+    background: #EFECE3; 
+    padding: 2rem; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+}
+
+.form-group { 
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+     display: block; 
+     margin-bottom: 0.5rem;
+     font-weight: 500; 
+}
+
+.form-group input, .form-group select, .form-group textarea { 
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid black; 
+    border-radius: 5px; 
+    font-size: 1rem;
+    background-color: #F2EAD3; 
+}
+
+/* Button UI: Interactive Hover States */
+.btn-submit { 
+    background-color: #4FB7B3; 
+    color: #19183B; 
+    border: none; 
+    padding: 12px 20px; 
+    font-size: 1rem; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    width: 100%; 
+    margin-top: 10px; 
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover { 
+    background-color: #B4E50D; 
+}
+
+/* FEED GRID SYSTEM */
+.items-grid { 
+    display: grid; 
+    grid-template-columns: 1fr; /* Single Column Layout */
+    gap: 20px; 
+} 
+
+/* CARD COMPONENT DESIGN */
+.item-card { 
+    background: lightblue; 
+    padding: 1.5rem; 
+    border-radius: 10px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+    border-left: 6px solid #bdc3c7; /* Default Border */
+}
+
+/* STYLING (Visual Feedback) */
+.item-card.lost { border-left-color: #e74c3c; } 
+.item-card.found { border-left-color: #27ae60; } 
+
+.item-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover; 
+    /* I use cover because i don't want uploaded img streched */
+    border-radius: 8px;
+    margin-right: 20px;
+    border: 1px solid black;
+}
+
+/* Card Internal Layout */
+.card-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 5px; 
+}
+
+.card-header h3 { 
+    font-size: 1.3rem; 
+    color: #2c3e50; 
+    margin: 0; 
+}
+
+/* Tag Badges */
+.tag { 
+    padding: 4px 12px; 
+    border-radius: 20px; 
+    font-size: 0.8rem; 
+    font-weight: 600; 
+    text-transform: uppercase; 
+}
+
+.tag.lost { 
+    background-color: #fadbd8; 
+    color: #c0392b; 
+}
+
+.tag.found { 
+    background-color: #d5f5e3; 
+    color: #27ae60; 
+}
+
+.desc { 
+    font-style: italic; 
+    color: #555; 
+    background: #f9f9f9; 
+    padding: 8px; 
+    border-radius: 4px; 
+    font-size: 0.9em; 
+    margin: 8px 0; 
+}
+
+.btn-delete { 
+    margin-top: 10px; 
+    background-color: #4FB7B3; 
+    color: #19183B; 
+    border: none; 
+    padding: 8px 15px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 0.8rem; 
+}
+
+.btn-delete:hover { background-color: #B4E50D; }
