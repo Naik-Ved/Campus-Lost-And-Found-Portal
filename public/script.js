@@ -1,4 +1,4 @@
-const API_URL = '';
+const API_URL = 'https://campus-lost-found-n7ig.onrender.com';
 let base64Image = "";
 let currentCollege = ""; 
 
