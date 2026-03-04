@@ -1,176 +1,222 @@
-
-* { 
+   * {
     margin: 0;
-    padding: 0; 
+    padding: 0;
     box-sizing: border-box; 
-    font-family: 'Poppins', sans-serif; 
+    font-family: 'Poppins', sans-serif;
 }
 
-body { 
-    background-color: #313647; 
-    color: #050E3C; 
-    line-height: 1.6; 
+/* Body styling */
+body {
+    background-color: #f4f7f6; /* Much lighter, cleaner background */
+    color: #2c3e50;
+    line-height: 1.6;
 }
 
-/* --- FLEXBOX NAVBAR --- */
-.navbar { 
-    background-color: #435663; 
-    color: #A3B087; 
-    padding: 1rem 2rem; 
-    display: flex; /* Aligns logo and links horizontally */
-    justify-content: space-around; 
-    align-items: center; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+/* Make the navbar a crisp, dark premium color */
+.navbar {
+    background-color: #1a252f;
+    color: #ffffff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Slightly stronger shadow */
 }
 
-.logo { 
-    font-size: 2rem; 
-    font-weight: 600; 
+/* Logo styling */
+.logo {
+    font-size: 2rem;
+    font-weight: 600;
 }
 
-.nav-links a { 
-    color: #A3B087; 
-    text-decoration: none; 
-    margin-left: 20px; 
-    font-weight: 400; 
+/* Navigation links */
+.nav-links a {
+    color: #ffffff; /* White text looks much cleaner */
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+    transition: color 0.3s; /* Smooth hover effect */
 }
 
-/* MAIN LAYOUT CONTAINER */
-.container { 
-    max-width: 1000px; 
-    margin: 2rem auto; 
-    padding: 0 20px; 
-    display: grid; /* Here I  Creates separation between Form and Feed */
-    gap: 2rem; 
+.nav-links a:hover {
+    color: #4FB7B3; /* Your teal color for hover */
+}
+
+/* MAIN GRID CONTAINER
+ Used CSS Grid to separate form and manages items with cleanliness */
+.container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 20px;
+
+    display: grid;
+    gap: 2rem;
 }
 
 /* FORM STYLING */
-.form-container { 
-    background: #EFECE3; 
-    padding: 2rem; 
-    border-radius: 10px; 
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+.form-container {
+    background: #ffffff; /* Pure white makes it pop */
+    padding: 2.5rem;
+    border-radius: 12px; /* Slightly rounder corners */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08); /* Modern, soft drop shadow */
+    border: 1px solid #e1e8ed; /* Very subtle border */
 }
 
-.form-group { 
+/* Each input block */
+.form-group {
     margin-bottom: 1.5rem;
 }
 
 .form-group label {
-     display: block; 
-     margin-bottom: 0.5rem;
-     font-weight: 500; 
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
 }
 
-.form-group input, .form-group select, .form-group textarea { 
-    width: 100%; 
-    padding: 10px; 
-    border: 1px solid black; 
-    border-radius: 5px; 
+/* Inputs, select & textarea */
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 12px; /* Slightly more padding so it doesn't feel cramped */
+    border: 1.5px solid #cbd5e1; /* Soft gray border instead of harsh black */
+    border-radius: 8px; /* Rounder edges */
     font-size: 1rem;
-    background-color: #F2EAD3; 
+    background-color: #f8fafc; /* Very light gray/blue inside the box */
+    transition: all 0.3s ease; /* Smooth transition for interactivity */
 }
 
-/* Button UI: Interactive Hover States */
-.btn-submit { 
-    background-color: #4FB7B3; 
-    color: #19183B; 
-    border: none; 
-    padding: 12px 20px; 
-    font-size: 1rem; 
-    border-radius: 5px; 
-    cursor: pointer; 
-    width: 100%; 
-    margin-top: 10px; 
+/* THIS IS THE MAGIC - Makes it feel interactive when clicked */
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: #4FB7B3; /* Changes to your teal color */
+    box-shadow: 0 0 0 3px rgba(79, 183, 179, 0.2); /* Creates a soft glow */
+    background-color: #ffffff;
+}
+
+   /* BUTTON STYLING
+   Includes hover animation */
+.btn-submit {
+    background-color: #4FB7B3;
+    color: #19183B;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+
     transition: background-color 0.3s;
 }
 
-.btn-submit:hover { 
-    background-color: #B4E50D; 
+.btn-submit:hover {
+    background-color: #B4E50D;
 }
 
-/* FEED GRID SYSTEM */
-.items-grid { 
-    display: grid; 
-    grid-template-columns: 1fr; /* Single Column Layout */
-    gap: 20px; 
-} 
-
-/* CARD COMPONENT DESIGN */
-.item-card { 
-    background: lightblue; 
-    padding: 1.5rem; 
-    border-radius: 10px; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
-    border-left: 6px solid #bdc3c7; /* Default Border */
+   /* FEED GRID SYSTEM */
+.items-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Single column layout */
+    gap: 20px;
 }
 
-/* STYLING (Visual Feedback) */
-.item-card.lost { border-left-color: #e74c3c; } 
-.item-card.found { border-left-color: #27ae60; } 
+   /* ITEM CARD */
+.item-card {
+    background: lightblue;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 
+    /* Default border */
+    border-left: 6px solid #bdc3c7;
+}
+
+/* Visual indicator based on status */
+.item-card.lost { border-left-color: #e74c3c; }
+.item-card.found { border-left-color: #27ae60; }
+
+/* Item image */
 .item-img {
     width: 100px;
     height: 100px;
-    object-fit: cover; 
-    /* I use cover because i don't want uploaded img streched */
+    object-fit: cover; /* Prevents stretching */
     border-radius: 8px;
     margin-right: 20px;
     border: 1px solid black;
 }
 
-/* Card Internal Layout */
-.card-header { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    margin-bottom: 5px; 
+/* Header inside card */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
 }
 
-.card-header h3 { 
-    font-size: 1.3rem; 
-    color: #2c3e50; 
-    margin: 0; 
+/* Status tag badges */
+.tag {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
-/* Tag Badges */
-.tag { 
-    padding: 4px 12px; 
-    border-radius: 20px; 
-    font-size: 0.8rem; 
-    font-weight: 600; 
-    text-transform: uppercase; 
+.tag.lost {
+    background-color: #fadbd8;
+    color: #c0392b;
 }
 
-.tag.lost { 
-    background-color: #fadbd8; 
-    color: #c0392b; 
+.tag.found {
+    background-color: #d5f5e3;
+    color: #27ae60;
 }
 
-.tag.found { 
-    background-color: #d5f5e3; 
-    color: #27ae60; 
+/* Description box */
+.desc {
+    font-style: italic;
+    color: #555;
+    background: #f9f9f9;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    margin: 8px 0;
 }
 
-.desc { 
-    font-style: italic; 
-    color: #555; 
-    background: #f9f9f9; 
-    padding: 8px; 
-    border-radius: 4px; 
-    font-size: 0.9em; 
-    margin: 8px 0; 
+/* Delete button */
+.btn-delete {
+    margin-top: 10px;
+    background-color: #4FB7B3;
+    color: #19183B;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
 }
 
-.btn-delete { 
-    margin-top: 10px; 
-    background-color: #4FB7B3; 
-    color: #19183B; 
-    border: none; 
-    padding: 8px 15px; 
-    border-radius: 4px; 
-    cursor: pointer; 
-    font-size: 0.8rem; 
+.btn-delete:hover {
+    background-color: #B4E50D;
 }
 
-.btn-delete:hover { background-color: #B4E50D; }
+   /* COLLEGE SELECTION SCREEN */
+#college-selection-screen {
+    text-align: center;
+    margin-top: 100px;
+    background: #EFECE3;
+    padding: 3rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#collegeDropdown {
+    padding: 12px;
+    font-size: 1rem;
+    margin: 20px 0;
+    width: 80%;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #F2EAD3;
+}

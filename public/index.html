@@ -1,77 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Campus Lost & Found</title>
+
     <link rel="stylesheet" href="style.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    
-    <nav class="navbar">
-        <div class="logo">Campus Lost & Found</div>
-        <div class="nav-links">
-            <a href="#report-section">Post Item</a>
-            <a href="#feed-section">Browse Items</a>
-        </div>
-    </nav>
-    
-    <main class="container">
 
-        <section id="report-section" class="form-container">
-            <h2>Post a Report</h2>
-            
-            <div id="itemForm">
-                
-                <div class="form-group">
-                    <label>Status (Are you finding or losing?)</label>
-                    <select id="itemType">
-                        <option value="Found">I Found Something</option>
-                        <option value="Lost">I Lost Something</option>
-                    </select>
-                </div>
+    <!-- 1. COLLEGE SELECTION (GATEKEEPER SCREEN) -->
+    <!-- I make This section ensures users only see items related to their campus -->
+    <div id="college-selection-screen">
+        <h1>Select Your College</h1>
+        <p>Find or report items specific to your campus.</p>
 
-                <div class="form-group">
-                    <label>Item Name</label>
-                    <input type="text" id="itemName" placeholder="e.g. Blue Casio Calculator">
-                </div>
-                
-                <div class="form-group">
-                    <label>Your Name</label>
-                    <input type="text" id="userName" placeholder="Enter your name">
-                </div>
+        <!-- Dropdown populated dynamically via JavaScript -->
+        <select id="collegeDropdown">
+            <option value="">-- Choose Your College --</option>
+        </select>
 
-                <div class="form-group">
-                    <label>Contact Number / Location</label>
-                    <input type="text" id="contact" placeholder="e.g. 999-999-9999 or Library Table 4">
-                </div>
+        <br>
 
-                <div class="form-group">
-                    <label>Unique Mark / Description</label>
-                    <textarea id="description" placeholder="Describe unique marks (e.g. 'My name RAJ is scratched on back')"></textarea>
-                </div>
+        <!-- Calls enterCampus() to validate and load campus feed -->
+        <button onclick="enterCampus()" class="btn-submit" style="width: 200px;">
+            Enter Campus
+        </button>
+    </div>
 
-                <div class="form-group">
-                    <label>Upload Photo (Proof)</label>
-                    <input type="file" id="imageInput" accept="image/*">
-                </div>
+    <!-- 2. MAIN APPLICATION (Main Form) -->
+    <div id="main-app" style="display: none;">
 
-                <img id="preview" src="" style="max-width: 100px; display: none; margin-top: 10px; border: 2px solid #ddd; border-radius: 5px;">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="logo">Campus Lost & Found</div>
 
-                <button onclick="reportItem()" class="btn-submit">Post Report</button>
+            <!-- Internal Page Navigation -->
+            <div class="nav-links">
+                <a href="#report-section">Post Item</a>
+                <a href="#feed-section">Browse Items</a>
             </div>
-        </section>
+        </nav>
 
-        <section id="feed-section" class="feed-container">
-            <h2>Recent Activity</h2>
-            <div id="itemsContainer" class="items-grid">
-                <p>Loading items...</p>
-            </div>
-        </section>
+        <!-- Main Content -->
+        <main class="container">
 
-    </main>
+            <!-- REPORT ITEM SECTION -->
+            <section id="report-section" class="form-container">
+                <h2>Post a Report</h2>
+
+                <!-- Form Container -->
+                <div id="itemForm">
+
+                    <!-- Item Type -->
+                    <div class="form-group">
+                        <label>Status (Are you finding or losing?)</label>
+                        <select id="itemType">
+                            <option value="Found">I Found Something</option>
+                            <option value="Lost">I Lost Something</option>
+                        </select>
+                    </div>
+
+                    <!-- Item Name -->
+                    <div class="form-group">
+                        <label>Item Name</label>
+                        <input type="text" id="itemName" placeholder="e.g. Blue Casio Calculator">
+                    </div>
+
+                    <!-- User Name -->
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" id="userName" placeholder="Enter your name">
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="form-group">
+                        <label>Contact Number / Location</label>
+                        <input type="text" id="contact" placeholder="e.g. 999-999-9999 or Library Table 4">
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label>Unique Mark / Description</label>
+                        <textarea id="description" placeholder="Describe unique marks"></textarea>
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div class="form-group">
+                        <label>Upload Photo (Proof)</label>
+                        <input type="file" id="imageInput" accept="image/*">
+                    </div>
+
+                    <!-- Secret PIN -->
+                    <div class="form-group">
+                        <label>Secret PIN (4-Digits to delete/claim this later)</label>
+                        <input type="password" id="secretPIN" maxlength="4">
+                    </div>
+
+                    <!-- Image Preview -->
+                    <img id="preview" style="max-width: 100px; display: none;">
+
+                    <!-- Submit Button -->
+                    <button onclick="reportItem()" class="btn-submit">
+                        Post Report
+                    </button>
+
+                </div>
+            </section>
+
+            <!-- FEED SECTION -->
+            <section id="feed-section" class="feed-container">
+                <h2>Recent Activity</h2>
+                <div id="itemsContainer" class="items-grid">
+                    <p>Loading items...</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
 
     <script src="script.js"></script>
+
 </body>
 </html>

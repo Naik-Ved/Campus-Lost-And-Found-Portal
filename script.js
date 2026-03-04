@@ -1,123 +1,193 @@
-// When i search on Goggle address Bar 
-const API_URL = 'http://localhost:5000';
+const API_URL = '';
 let base64Image = "";
-// base64 is use to converts img to String 
+let currentCollege = ""; 
 
-//EVENT LISTENER: IMAGE PREVIEW 
-//Converts uploaded file to Base64 string for immediate preview & storage.
+const mumbaiColleges = [
+    "Veermata Jijabai Technological Institute (VJTI) - Matunga",
+    "Institute of Chemical Technology (ICT) - Matunga",
+    "Sardar Patel College of Engineering (SPCE) - Andheri",
+    "Sardar Patel Institute of Technology (SPIT) - Andheri",
+    "Dwarkadas J. Sanghvi College of Engineering (DJSCE) - Vile Parle",
+    "Thadomal Shahani Engineering College (TSEC) - Bandra",
+    "Fr. Conceicao Rodrigues College of Engineering (CRCE) - Bandra",
+    "Rajiv Gandhi Institute of Technology (RGIT) - Andheri",
+    "Thakur College of Engineering and Technology (TCET) - Kandivali",
+    "St. Francis Institute of Technology (SFIT) - Borivali",
+    "Rizvi College of Engineering - Bandra",
+    "Xavier Institute of Engineering - Mahim",
+    "M.H. Saboo Siddik College of Engineering - Byculla",
+    "K. J. Somaiya College of Engineering - Vidyavihar",
+    "Vivekanand Education Society's Institute of Technology (VESIT)",
+    "Shah and Anchor Kutchhi Engineering College (SAKEC) - Chembur",
+    "Vidyalankar Institute of Technology (VIT) - Wadala",
+    "Don Bosco Institute of Technology (DBIT) - Kurla",
+    "Padmabhushan Vasantdada Patil Pratishthan's College of Engineering (PVPPCOE) - Sion",
+    "Fr. C. Rodrigues Institute of Technology (FCRIT) - Vash",
+    "Ramrao Adik Institute of Technology (RAIT) - Nerul",
+    "SIES Graduate School of Technology - Nerul",
+    "Bharati Vidyapeeth College of Engineering - Belapur",
+    "Datta Meghe College of Engineering - Airoli",
+    "A.C. Patil College of Engineering - Kharghar",
+    "Saraswati College of Engineering - Kharghar",
+    "Smt. Indira Gandhi College of Engineering - Koparkhairane",
+    "Mahatma Gandhi Mission's (MGM) College of Engineering and Technology - Kamothe",
+    "Pillai College of Engineering - New Panvel",
+    "Vidyavardhini's College of Engineering and Technology (VCET) - Vasai",
+    "Jondhale College of Engineering - Dombivli",
+    "Pendharkar College of Engineering - Dombivli",
+    "Konkan Gyanpeeth College of Engineering - Karjat",
+    "Dilkap Research Institute of Engineering and Management Studies (DRIEMS)",
+    "G V Acharya Institute of Engineering and Technology, Karjat",
+];
+
+// This runs automatically when the page loads to build the dropdown dynamically(First Page when user opens the Website) 
+window.onload = function() {
+    const dropdown = document.getElementById('collegeDropdown');
+    mumbaiColleges.forEach(college => {
+        let option = document.createElement('option');
+        option.value = college;
+        option.textContent = college;
+        dropdown.appendChild(option);
+    });
+};
+
+// enterCampus()
+// WHY : Acts as a gatekeeper. It saves the user's college choice, hides the welcome screen, shows the main form of LOST/FOUND
+function enterCampus() {
+    const selected = document.getElementById('collegeDropdown').value;
+    if (!selected) return alert("Please select a college first!");
+    
+    currentCollege = selected; 
+    document.getElementById('college-selection-screen').style.display = 'none';
+    document.getElementById('main-app').style.display = 'block';
+    
+    loadItems(); // Fetch items for this specific college campus
+}
+
+//  Image Input Event Listener
+// WHY : Intercepts the file upload, reads the file, and converts it to a Base64 string (text representation of the image) so it can be saved in MongoDB easily.
 document.getElementById('imageInput').addEventListener('change', function(event) {
     const file = event.target.files[0];
     if (file) {
-        const reader = new FileReader();
+        const reader = new FileReader(); // Built-in browser API
         reader.onloadend = function() {
-            base64Image = reader.result;
-            //(DOM Manipulation)By this line we i see the preview image
+            base64Image = reader.result; // Save the string
             const preview = document.getElementById('preview');
             preview.src = base64Image;
             preview.style.display = "block";
         }
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file); // Trigger the conversion
     }
 });
 
-//(ASYNC FUNCTION) To Submit the Report  
+// reportItem()
+// WHY :  all form data, packages it into a JSON playload, and POSTs it to the backend.
 async function reportItem() {
-    // Here I Collect Data from DOM Elements 
+    // 1. Grab all values from the DOM
     const type = document.getElementById('itemType').value;
     const item = document.getElementById('itemName').value;
     const name = document.getElementById('userName').value;
     const contact = document.getElementById('contact').value;
     const desc = document.getElementById('description').value;
+    const pin = document.getElementById('secretPIN').value;
 
-    //If Someone Not Fill the Data in Correct Way and click the submit Button
-    if (!item || !name || !contact) return alert("Please fill Item Name, Your Name, and Contact!");
+    if (!item || !name || !contact || !pin) return alert("Please fill Item Name, Your Name, Contact, and a Secret PIN!");
 
-    //Use default icon(if someone Forgot add Image) if no image is uploaded
-    let finalImage = base64Image;
-    if (!finalImage) {
-        finalImage = "https://cdn-icons-png.flaticon.com/512/681/681594.png";
-    }   
-    // This is the Basic Information fill for the Report
-    const data = { type, item, name, contact, description: desc, image: finalImage };
+    // Fallback image if user didn't upload one
+    let finalImage = base64Image || "https://cdn-icons-png.flaticon.com/512/681/681594.png";
+
+    // 2. Package data for the backend
+    const data = {
+        type, item, name, contact, description: desc, image: finalImage,
+        collegeName: currentCollege, secretPIN: pin
+    };
 
     try {
-        //(API CALL)POST request to server
-        // Here i am using async and await just because i don't want when 10 users hiting the website then webpage freez
+        // 3. Send the HTTP POST request to our server(The Brain oof Website)
         await fetch(`${API_URL}/add-item`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
+            // Stringify Converts the user inputed data to JSON Object
             body: JSON.stringify(data)
         });
 
         alert("Report Submitted Successfully!");
-
-        //RESET logic after click on submit Button: Clear form fields after successful submission
+        // Clear the form for the next entry
         document.getElementById('itemForm').querySelectorAll('input, textarea').forEach(input => input.value = '');
         document.getElementById('preview').style.display = "none";
         base64Image = "";
 
-        loadItems(); // When Submission is completed System redirects on same webpage and user can see his item(lost or Found) 
+        loadItems(); // Refresh the UI with the new item
     } catch (error) {
         console.error("Network Error:", error);
         alert("Server Error. Is the backend running?");
     }
 }
 
-//(ASYNC FUNCTION)LOAD FEED
-//Here Data Fetched from backend and renders to HTML Cards
+// LOAD FEED LOGIC
 async function loadItems() {
     try {
-        const res = await fetch(`${API_URL}/items`);
+        const res = await fetch(`${API_URL}/items/${encodeURIComponent(currentCollege)}`);
         const items = await res.json();
         
         const container = document.getElementById('itemsContainer');
-        container.innerHTML = ""; // Clear existing content
+        container.innerHTML = `<h3>Showing items for: ${currentCollege}</h3>`;
 
-        // EMPTY STATE HANDLING(If No Items are Lost or Found by Someone)
         if(items.length === 0) {
-            container.innerHTML = "<p>No items reported yet.</p>";
+            container.innerHTML += "<p>No items reported yet for this campus.</p>";
             return;
         }
 
-        // DYNAMIC RENDERING LOOP
+        // The loop is back, and the HTML is restored!
         items.forEach(obj => {
-            // Here I Style the Conditionally on the base of item Lost or Found
             const typeClass = obj.type === 'Lost' ? 'lost' : 'found';
-            
-            container.innerHTML += `
-                <div class="item-card ${typeClass}">
-                    <div style="display:flex; align-items:flex-start;">
-                        <img src="${obj.image}" class="item-img" alt="Item Image">
-                        <div class="info" style="width:100%">
-                            <div class="card-header">
-                                <h3>${obj.item}</h3>
-                                <span class="tag ${typeClass}">${obj.type}</span>
-                            </div>
-                            <p><strong>Owner:</strong> ${obj.name}</p>
-                            <p class="desc">"${obj.description || 'No description'}"</p>
-                            <p><strong>Contact:</strong> ${obj.contact}</p>
-                            
-                            <button class="btn-delete" onclick="deleteItem('${obj.id}')">
-                                ${obj.type === 'Lost' ? 'Found It! (Resolve)' : 'Claimed (Resolve)'}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
+            container.innerHTML += `   
+                <div class="item-card ${typeClass}">   
+                    <div style="display:flex; align-items:flex-start;">   
+                        <img src="${obj.image}" class="item-img" alt="Item Image">   
+                        <div class="info" style="width:100%">   
+                            <div class="card-header">   
+                                <h3>${obj.item}</h3>   
+                                <span class="tag ${typeClass}">${obj.type}</span>   
+                            </div>   
+                            <p><strong>Owner:</strong> ${obj.name}</p>   
+                            <p class="desc">"${obj.description || 'No description'}"</p>   
+                            <p><strong>Contact:</strong> ${obj.contact}</p>   
+                            <button class="btn-delete" onclick="deleteItem('${obj._id}')">   
+                                ${obj.type === 'Lost' ? 'Found It! (Resolve)' : 'Claimed (Resolve)'}   
+                            </button>   
+                        </div>   
+                    </div>   
+                </div>`;
         });
     } catch (error) {
         console.error("Error loading items:", error);
-        document.getElementById('itemsContainer').innerHTML = "<p style='color:red'>Failed to load items. Check Server.</p>";
     }
 }
 
-//ASYNC FUNCTION TO DELETE ITEM
+// deleteItem(id)
+// WHY : Prompts for a PIN, then sends a DELETE request. The backend will verify if the PIN is correct.
 async function deleteItem(id) {
-    if(confirm('Mark this issue as resolved?')) {
-        await fetch(`${API_URL}/delete-item/${id}`, { method: 'DELETE' });
-        loadItems(); // Redirecting on the same webpage to see the changes by user
+    const enteredPIN = prompt("Enter the 4-Digit Secret PIN to claim/delete this item:");
+    if (!enteredPIN) return; 
+
+    try {
+        const response = await fetch(`${API_URL}/delete-item/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pin: enteredPIN }) // Send typed PIN to backend
+        });
+
+        const result = await response.json();
+
+        // Checking for PIN
+        if (response.ok) {
+            alert("Success: " + result.message);
+            loadItems(); 
+        } else {
+            alert(result.error);
+        }
+    } catch (error) {
+        console.error("Error:", error);
     }
 }
-
-//Calling for the 1st time to load the Webpage
-loadItems();
