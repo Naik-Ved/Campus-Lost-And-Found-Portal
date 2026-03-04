@@ -10,7 +10,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // 1. DATABASE CONNECTION 
 const dbUrl = process.env.MONGO_URI;
-
 mongoose.connect(dbUrl)
     .then(() => console.log("MongoDB Connected Successfully!"))
     .catch(err => console.log("MongoDB Connection Failed:", err));
